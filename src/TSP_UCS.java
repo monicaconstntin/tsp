@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.function.Supplier;
 
 public class TSP_UCS {
 
@@ -21,7 +22,7 @@ public class TSP_UCS {
         }
     }
 
-    public static void main(String[] args) {
+  public static void main(String[] args) {
         Map<String, Map<String, Integer>> distances = new HashMap<>();
 
 
@@ -32,9 +33,16 @@ public class TSP_UCS {
         distances.put("E", Map.of("A", 1, "B", 8, "C", 2, "D", 7));
 
         String startCity = "A";
+        long startTime = System.nanoTime();
+        long endTime = System.nanoTime();
         Result result = findShortestPath(startCity, distances);
+
+        long duration = (endTime - startTime);  //convert to milliseconds
+        double durationInSeconds = duration / 1_000_000_000.0;
+
         System.out.println("Shortest path  cost: " + result.cost);
         System.out.println("Path: " + String.join(" -> ", result.path));
+        System.out.printf("Execution time: %.7f seconds%n", durationInSeconds);
     }
 
     static class Result {
